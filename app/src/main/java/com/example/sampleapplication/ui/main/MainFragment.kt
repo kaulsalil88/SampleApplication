@@ -21,19 +21,25 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var mGestureDetector: GestureDetectorCompat
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        Log.d("MainFragment","onCreateView");
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        Log.d("MainFragment","onActivityCreated");
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("MainFragment","onViewCreated");
         mGestureDetector = GestureDetectorCompat(view.context, MyGestureListener())
         view.setOnTouchListener { v, event ->
             if (mGestureDetector.onTouchEvent(event)) {
@@ -42,11 +48,18 @@ class MainFragment : Fragment() {
                 false
             }
         }
-        view.findViewById<TextView>(R.id.message).setOnClickListener { Toast.makeText(it.context, "Clicked", Toast.LENGTH_SHORT).show() }
+        //ToDo: Remove this code snippet
+        view.findViewById<TextView>(R.id.message)
+            .setOnClickListener { Toast.makeText(it.context, "Clicked", Toast.LENGTH_SHORT).show() }
+
+        viewModel.profile.observe(viewLifecycleOwner, {
+            Log.d("MainFragment -------->",it.toString())
+        })
+
     }
 
 
-    private class MyGestureListener : GestureDetector.SimpleOnGestureListener() {
+    private inner class MyGestureListener : GestureDetector.SimpleOnGestureListener() {
         val DEBUG_TAG = "MyGestureListener"
         private val SWIPE_THRESHOLD = 100
         private val SWIPE_VELOCITY_THRESHOLD = 100
@@ -57,10 +70,10 @@ class MainFragment : Fragment() {
         }
 
         override fun onFling(
-                event1: MotionEvent,
-                event2: MotionEvent,
-                velocityX: Float,
-                velocityY: Float
+            event1: MotionEvent,
+            event2: MotionEvent,
+            velocityX: Float,
+            velocityY: Float
         ): Boolean {
             Log.d(DEBUG_TAG, "onFling: $event1 $event2")
             var result = false
@@ -75,7 +88,9 @@ class MainFragment : Fragment() {
                         } else {
                             //Fetch New Data from API to Display
                             Log.d(DEBUG_TAG, "Left Swipe")
+
                         }
+                        viewModel.getProfile()
                         result = true
                     }
                 }
@@ -90,4 +105,9 @@ class MainFragment : Fragment() {
         }
     }
 
+
 }
+
+
+
+
