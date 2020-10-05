@@ -18,28 +18,25 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private  val viewModel: MainViewModel by lazy {
+         requireNotNull(this.activity){
+            "Activity Has to be created"
+        }
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
     private lateinit var mGestureDetector: GestureDetectorCompat
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d("MainFragment","onCreateView");
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        Log.d("MainFragment", "onCreateView");
         return inflater.inflate(R.layout.main_fragment, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.d("MainFragment","onActivityCreated");
-        super.onActivityCreated(savedInstanceState)
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("MainFragment","onViewCreated");
+        Log.d("MainFragment", "onViewCreated");
         mGestureDetector = GestureDetectorCompat(view.context, MyGestureListener())
         view.setOnTouchListener { v, event ->
             if (mGestureDetector.onTouchEvent(event)) {
@@ -53,7 +50,7 @@ class MainFragment : Fragment() {
             .setOnClickListener { Toast.makeText(it.context, "Clicked", Toast.LENGTH_SHORT).show() }
 
         viewModel.profile.observe(viewLifecycleOwner, {
-            Log.d("MainFragment -------->",it.toString())
+            Log.d("MainFragment -------->", it.toString())
         })
 
     }
@@ -103,7 +100,6 @@ class MainFragment : Fragment() {
 
 
         }
-
 
 
     }
