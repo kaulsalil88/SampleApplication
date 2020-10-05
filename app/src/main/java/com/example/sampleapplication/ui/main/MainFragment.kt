@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.sampleapplication.R
 
 class MainFragment : Fragment() {
@@ -27,8 +28,8 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,23 +70,16 @@ class MainFragment : Fragment() {
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
-//                            onSwipeRight()
+//                            Add Profile To Db
                             Log.d(DEBUG_TAG, "Righ Swipe")
                         } else {
-                            //onSwipeLeft()
+                            //Fetch New Data from API to Display
                             Log.d(DEBUG_TAG, "Left Swipe")
                         }
                         result = true
                     }
                 }
-//                else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-//                    if (diffY > 0) {
-//                        onSwipeBottom()
-//                    } else {
-//                        onSwipeTop()
-//                    }
-//                    result = true
-//                }
+
             } catch (exception: Exception) {
                 exception.printStackTrace()
             }
