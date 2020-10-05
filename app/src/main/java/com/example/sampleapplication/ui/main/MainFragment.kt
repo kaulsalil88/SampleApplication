@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.d("MainFragment","onActivityCreated");
         super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
 
     }
 
@@ -103,6 +103,9 @@ class MainFragment : Fragment() {
 
 
         }
+
+
+
     }
 
 
