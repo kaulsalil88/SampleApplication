@@ -1,11 +1,14 @@
 package com.example.sampleapplication.ui.main
 
+import android.gesture.Gesture
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
+import android.view.*
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.example.sampleapplication.R
 
 class MainFragment : Fragment() {
@@ -15,7 +18,7 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
-
+    private lateinit var mGestureDetector: GestureDetectorCompat
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -30,6 +33,67 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mGestureDetector = GestureDetectorCompat(view.context, MyGestureListener())
+        view.setOnTouchListener { v, event ->
+            if (mGestureDetector.onTouchEvent(event)) {
+                true
+            } else {
+                false
+            }
+        }
+        view.findViewById<TextView>(R.id.message).setOnClickListener { Toast.makeText(it.context, "Clicked", Toast.LENGTH_SHORT).show() }
+    }
+
+
+    private class MyGestureListener : GestureDetector.SimpleOnGestureListener() {
+        val DEBUG_TAG = "MyGestureListener"
+        private val SWIPE_THRESHOLD = 100
+        private val SWIPE_VELOCITY_THRESHOLD = 100
+
+        override fun onDown(event: MotionEvent): Boolean {
+            Log.d(DEBUG_TAG, "onDown: $event")
+            return true
+        }
+
+        override fun onFling(
+                event1: MotionEvent,
+                event2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+        ): Boolean {
+            Log.d(DEBUG_TAG, "onFling: $event1 $event2")
+            var result = false
+            try {
+                val diffY = event2.y - event1.y
+                val diffX = event2.x - event1.x
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffX > 0) {
+//                            onSwipeRight()
+                            Log.d(DEBUG_TAG, "Righ Swipe")
+                        } else {
+                            //onSwipeLeft()
+                            Log.d(DEBUG_TAG, "Left Swipe")
+                        }
+                        result = true
+                    }
+                }
+//                else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+//                    if (diffY > 0) {
+//                        onSwipeBottom()
+//                    } else {
+//                        onSwipeTop()
+//                    }
+//                    result = true
+//                }
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+            }
+
+            return result
+
+
+        }
     }
 
 }
