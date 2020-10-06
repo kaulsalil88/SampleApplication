@@ -10,10 +10,11 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private var _profile = MutableLiveData<Profile>()
+    private var _profiles = MutableLiveData<List<Profile>>()
 
-    val profile: LiveData<Profile> get() = _profile
+    val profiles: LiveData<List<Profile>> get() = _profiles
 
+    private val listOfProfiles = mutableListOf<Profile>()
 
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
@@ -29,12 +30,22 @@ class MainViewModel : ViewModel() {
         get() = _isNetworkErrorShown
 
 
+    //Fetching 15 items at a time
     fun getProfile() {
         viewModelScope.launch {
-            val profileContainer = ProfileNetwork.profiles.getProfile()
-            _profile.value = profileContainer.results.get(0)
+            for (i in 0..14) {
+                val profileContainer = ProfileNetwork.profiles.getProfile()
+                listOfProfiles.add(profileContainer.results[0])
+            }
+            _profiles.value = listOfProfiles
 
         }
     }
+
+    //Function to save the profile in the database
+    fun saveFavouriteProfile(profile: Profile) {
+
+    }
+
 
 }

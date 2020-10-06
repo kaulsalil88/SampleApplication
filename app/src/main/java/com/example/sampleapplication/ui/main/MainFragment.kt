@@ -1,7 +1,5 @@
 package com.example.sampleapplication.ui.main
 
-import android.gesture.Gesture
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -49,7 +47,7 @@ class MainFragment : Fragment() {
         view.findViewById<TextView>(R.id.message)
             .setOnClickListener { Toast.makeText(it.context, "Clicked", Toast.LENGTH_SHORT).show() }
 
-        viewModel.profile.observe(viewLifecycleOwner, {
+        viewModel.profiles.observe(viewLifecycleOwner, {
             Log.d("MainFragment -------->", it.toString())
         })
 
