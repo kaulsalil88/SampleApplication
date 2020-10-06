@@ -38,6 +38,7 @@ class MainFragment : Fragment() {
         viewModel.getProfile()
         viewModel.profiles.observe(viewLifecycleOwner, {
             Log.d("MainFragment -------->", it.toString())
+            Log.d("MainFragment", it.size.toString())
         })
 
         viewModel.eventNetworkError.observe(viewLifecycleOwner, {

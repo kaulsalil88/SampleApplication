@@ -34,14 +34,15 @@ class MainViewModel : ViewModel() {
     //Fetching 15 items at a time
     fun getProfile() {
         viewModelScope.launch {
-//            for (i in 0..1) {
-//                delay(1000)
-//                val profileContainer = ProfileNetwork.profiles.getProfile()
-//                listOfProfiles.add(profileContainer.results[0])
-//            }
-//            _profiles.value = listOfProfiles
+            for (i in 0..14) {
+               val profileContainer = ProfileNetwork.profiles.getProfile()
+                listOfProfiles.add(profileContainer.results[0])
+            }
+            _profiles.value = listOfProfiles
 
-            val profileContainer = ProfileNetwork.profiles.getProfile()
+//            val profileContainer = ProfileNetwork.profiles.getProfile()
+//            listOfProfiles.add(profileContainer.results[0])
+//            _profiles.value = listOfProfiles
         }
     }
 
