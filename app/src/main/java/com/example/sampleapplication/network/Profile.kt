@@ -11,7 +11,7 @@ data class ProfileContainer(val results: List<Profile>)
 data class Profile(val user: User)
 
 @JsonClass(generateAdapter = true)
-data class User(val gender: String, val name: Name)
+data class User(val gender: String, val name: Name, val picture:String)
 
 
 //"title":"miss","first":"arlene","last":"bishop"

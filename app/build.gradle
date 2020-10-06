@@ -65,4 +65,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
+    //dependencies for StackView
+    implementation 'com.mindorks:placeholderview:0.7.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+
 }
