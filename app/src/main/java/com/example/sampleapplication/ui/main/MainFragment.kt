@@ -53,7 +53,7 @@ class MainFragment : Fragment() {
             Log.d("MainFragment -------->", it.toString())
             Log.d("MainFragment", it.size.toString())
             for (profile in it) {
-                swipeView.addView(ProfileCard(mContext, profile, swipeView))
+                swipeView.addView(ProfileCard(mContext, profile, swipeView, viewModel))
                 swipeView.addItemRemoveListener {
                     Log.d("Main Fragment", it.toString());
                 }
