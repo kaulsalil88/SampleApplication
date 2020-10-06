@@ -18,17 +18,3 @@ data class User(val gender: String, val name: Name, val picture:String)
 @JsonClass(generateAdapter = true)
 data class Name(val title: String, val first: String, val last: String)
 
-//@JsonClass(generateAdapter = true)
-//data class NetworkVideoContainer(val videos: List<NetworkVideo>)
-//
-///**
-// * Videos represent a devbyte that can be played.
-// */
-//@JsonClass(generateAdapter = true)
-//data class NetworkVideo(
-//    val title: String,
-//    val description: String,
-//    val url: String,
-//    val updated: String,
-//    val thumbnail: String,
-//    val closedCaptions: String?)

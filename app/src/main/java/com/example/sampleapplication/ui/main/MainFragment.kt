@@ -1,14 +1,19 @@
 package com.example.sampleapplication.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.sampleapplication.R
+import com.example.sampleapplication.network.ProfileCard
+import com.mindorks.placeholderview.SwipeDecor
+import com.mindorks.placeholderview.SwipePlaceHolderView
+import com.mindorks.placeholderview.SwipeViewBuilder
 
 class MainFragment : Fragment() {
 
@@ -16,6 +21,7 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
+    private lateinit var mContext: Context
     private val viewModel: MainViewModel by lazy {
         requireNotNull(this.activity) {
             "Activity Has to be created"
@@ -35,10 +41,21 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val swipeView = view.findViewById<SwipePlaceHolderView>(R.id.swipe_place_holder)
+        mContext = context?.applicationContext!!
+        swipeView.getBuilder<SwipePlaceHolderView, SwipeViewBuilder<SwipePlaceHolderView>>()
+            .setDisplayViewCount(3)
+            .setSwipeDecor(SwipeDecor().setPaddingTop(20).setRelativeScale(0.01f))
         viewModel.getProfile()
         viewModel.profiles.observe(viewLifecycleOwner, {
             Log.d("MainFragment -------->", it.toString())
             Log.d("MainFragment", it.size.toString())
+            val list = it!!
+            for( profile in it){
+                swipeView.addView(ProfileCard(mContext,profile,swipeView))
+
+            }
+
         })
 
         viewModel.eventNetworkError.observe(viewLifecycleOwner, {
