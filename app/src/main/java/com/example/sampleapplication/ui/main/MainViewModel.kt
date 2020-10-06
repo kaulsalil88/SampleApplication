@@ -1,15 +1,16 @@
 package com.example.sampleapplication.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.*
+import com.example.sampleapplication.database.getProfileDatabase
 import com.example.sampleapplication.network.Profile
 import com.example.sampleapplication.network.ProfileNetwork
+import com.example.sampleapplication.network.convertToDbEntity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _profiles = MutableLiveData<List<Profile>>()
 
@@ -35,7 +36,7 @@ class MainViewModel : ViewModel() {
     fun getProfile() {
         viewModelScope.launch {
             for (i in 0..5) {
-               val profileContainer = ProfileNetwork.profiles.getProfile()
+                val profileContainer = ProfileNetwork.profiles.getProfile()
                 listOfProfiles.add(profileContainer.results[0])
             }
             _profiles.value = listOfProfiles
@@ -45,6 +46,10 @@ class MainViewModel : ViewModel() {
 
     //Function to save the profile in the database
     fun saveFavouriteProfile(profile: Profile) {
+        viewModelScope.launch {
+            getProfileDatabase(getApplication()).ProfileDao.saveProfile(profile.convertToDbEntity())
+        }
+
 
     }
 

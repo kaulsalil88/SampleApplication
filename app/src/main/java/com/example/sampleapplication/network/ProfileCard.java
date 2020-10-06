@@ -62,6 +62,7 @@ public class ProfileCard {
     @SwipeIn
     private void onSwipeIn() {
         Log.d("EVENT", "onSwipedIn");
+        mMainViewModel.saveFavouriteProfile(mProfile);
     }
 
     @SwipeInState
