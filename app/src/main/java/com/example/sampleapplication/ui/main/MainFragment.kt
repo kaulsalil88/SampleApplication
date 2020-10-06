@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -51,8 +52,8 @@ class MainFragment : Fragment() {
             Log.d("MainFragment -------->", it.toString())
             Log.d("MainFragment", it.size.toString())
             val list = it!!
-            for( profile in it){
-                swipeView.addView(ProfileCard(mContext,profile,swipeView))
+            for (profile in it) {
+                swipeView.addView(ProfileCard(mContext, profile, swipeView))
 
             }
 
@@ -65,6 +66,12 @@ class MainFragment : Fragment() {
 
         })
 
+        view.findViewById<Button>(R.id.bt_show_fav).setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, FavoritesFragment.newInstance(1))
+                .addToBackStack("Favorites")
+                .commit()
+        }
     }
 
 
