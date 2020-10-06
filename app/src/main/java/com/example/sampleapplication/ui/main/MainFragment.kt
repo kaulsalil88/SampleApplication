@@ -15,6 +15,7 @@ import com.example.sampleapplication.network.ProfileCard
 import com.mindorks.placeholderview.SwipeDecor
 import com.mindorks.placeholderview.SwipePlaceHolderView
 import com.mindorks.placeholderview.SwipeViewBuilder
+import com.mindorks.placeholderview.listeners.ItemRemovedListener
 
 class MainFragment : Fragment() {
 
@@ -51,9 +52,11 @@ class MainFragment : Fragment() {
         viewModel.profiles.observe(viewLifecycleOwner, {
             Log.d("MainFragment -------->", it.toString())
             Log.d("MainFragment", it.size.toString())
-            val list = it!!
             for (profile in it) {
                 swipeView.addView(ProfileCard(mContext, profile, swipeView))
+                swipeView.addItemRemoveListener {
+                    Log.d("Main Fragment", it.toString());
+                }
 
             }
 

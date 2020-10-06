@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.sampleapplication.R;
+import com.example.sampleapplication.ui.main.MainViewModel;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -31,43 +32,50 @@ public class ProfileCard {
     private Profile mProfile;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
+    private MainViewModel mMainViewModel;
 
-    public ProfileCard(Context context, Profile profile, SwipePlaceHolderView swipeView) {
+    public ProfileCard(Context context, Profile profile, SwipePlaceHolderView swipeView, MainViewModel mainViewModel) {
         mContext = context;
         mProfile = profile;
         mSwipeView = swipeView;
+        mMainViewModel = mainViewModel;
     }
 
     @Resolve
-    private void onResolved(){
+    private void onResolved() {
         Glide.with(mContext).load(mProfile.getUser().getPicture()).into(profileImageView);
         nameAgeTxt.setText(mProfile.getUser().getName().getFirst());
         //locationNameTxt.setText(mProfile.getLocation());
     }
 
     @SwipeOut
-    private void onSwipedOut(){
+    private void onSwipedOut() {
         Log.d("EVENT", "onSwipedOut");
         mSwipeView.addView(this);
     }
 
     @SwipeCancelState
-    private void onSwipeCancelState(){
+    private void onSwipeCancelState() {
         Log.d("EVENT", "onSwipeCancelState");
     }
 
     @SwipeIn
-    private void onSwipeIn(){
+    private void onSwipeIn() {
         Log.d("EVENT", "onSwipedIn");
     }
 
     @SwipeInState
-    private void onSwipeInState(){
+    private void onSwipeInState() {
         Log.d("EVENT", "onSwipeInState");
     }
 
     @SwipeOutState
-    private void onSwipeOutState(){
+    private void onSwipeOutState() {
         Log.d("EVENT", "onSwipeOutState");
     }
+
+    private void setViewModel(MainViewModel mainViewModel) {
+        mMainViewModel = mainViewModel;
+    }
+
 }
