@@ -9,7 +9,7 @@ import androidx.room.*
 interface ProfileDao {
 
     @Query("select * from profiledatabaseentity ")
-     fun getAllLikedProfiles(): LiveData<ProfileDatabaseEntity>
+     fun getAllLikedProfiles(): LiveData<List<ProfileDatabaseEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
    suspend fun saveProfile(profile: ProfileDatabaseEntity)

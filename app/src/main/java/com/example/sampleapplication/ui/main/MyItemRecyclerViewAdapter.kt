@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.sampleapplication.R
+import com.example.sampleapplication.database.ProfileDatabaseEntity
 
 import com.example.sampleapplication.ui.main.dummy.DummyContent.DummyItem
 
@@ -14,7 +15,7 @@ import com.example.sampleapplication.ui.main.dummy.DummyContent.DummyItem
  * TODO: Replace the implementation with code for your data type.
  */
 class MyItemRecyclerViewAdapter(
-    private val values: List<DummyItem>
+    private val values: List<ProfileDatabaseEntity>?
 ) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,12 +25,12 @@ class MyItemRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        val item = values?.get(position)
+        holder.idView.text = item?.first
+        holder.contentView.text = item?.last
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = values?.size ?: 0
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val idView: TextView = view.findViewById(R.id.item_number)

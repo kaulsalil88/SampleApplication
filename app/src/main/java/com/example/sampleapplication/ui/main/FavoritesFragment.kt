@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.sampleapplication.R
+import com.example.sampleapplication.database.getProfileDatabase
 import com.example.sampleapplication.ui.main.dummy.DummyContent
 
 /**
@@ -39,7 +40,7 @@ class FavoritesFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = MyItemRecyclerViewAdapter(getProfileDatabase(context).ProfileDao.getAllLikedProfiles().value)
             }
         }
         return view
