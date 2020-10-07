@@ -2,6 +2,7 @@ package com.example.sampleapplication.ui.main
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.sampleapplication.database.getProfileDatabase
 import com.example.sampleapplication.network.Profile
@@ -35,11 +36,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     //Fetching 15 items at a time
     fun getProfile() {
         viewModelScope.launch {
-            for (i in 0..5) {
-                val profileContainer = ProfileNetwork.profiles.getProfile()
-                listOfProfiles.add(profileContainer.results[0])
+            try {
+                for (i in 0..5) {
+                    val profileContainer = ProfileNetwork.profiles.getProfile()
+                    listOfProfiles.add(profileContainer.results[0])
+                }
+                _profiles.value = listOfProfiles
+            } catch (ex: Exception) {
+                Log.e("MainViewModel", ex.localizedMessage)
+                _eventNetworkError.value = true
             }
-            _profiles.value = listOfProfiles
+
 
         }
     }
