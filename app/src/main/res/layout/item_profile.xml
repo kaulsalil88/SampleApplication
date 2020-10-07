@@ -1,46 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
-    android:layout_height="425dp"
+    android:layout_height="500dp"
     android:layout_marginBottom="50dp"
     android:orientation="vertical">
+
     <androidx.cardview.widget.CardView
-        android:orientation="vertical"
-        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
         app:cardCornerRadius="7dp"
         app:cardElevation="4dp">
+
         <ImageView
             android:id="@+id/profileImageView"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="75dp"/>
-        <LinearLayout
+            android:layout_marginBottom="100dp"
+            android:scaleType="centerCrop" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:orientation="vertical"
+            android:layout_height="100dp"
             android:layout_gravity="bottom"
-            android:gravity="center|left"
-            android:paddingLeft="20dp">
+            android:padding="10dp">
+
             <TextView
-                android:id="@+id/nameAgeTxt"
-                android:layout_width="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/locationNameTxt"
+                android:id="@+id/tv_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14dp"
-                android:textStyle="normal"/>
-        </LinearLayout>
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Sample" />
+
+            <TextView
+                android:id="@+id/tv_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_desc"
+                tools:text="Sample" />
+
+            <ImageView
+                android:id="@+id/iv_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_baseline_perm_identity_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_details" />
+
+            <ImageView
+                android:id="@+id/iv_dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_baseline_calendar_view_day_24"
+                app:layout_constraintStart_toEndOf="@+id/iv_person"
+                app:layout_constraintTop_toBottomOf="@+id/tv_details" />
+
+            <ImageView
+                android:id="@+id/iv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_baseline_my_location_24"
+                app:layout_constraintStart_toEndOf="@+id/iv_dob"
+                app:layout_constraintTop_toBottomOf="@+id/tv_details" />
+
+            <ImageView
+                android:id="@+id/iv_ssn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_baseline_lock_24"
+                app:layout_constraintStart_toEndOf="@+id/iv_location"
+                app:layout_constraintTop_toBottomOf="@+id/tv_details" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>

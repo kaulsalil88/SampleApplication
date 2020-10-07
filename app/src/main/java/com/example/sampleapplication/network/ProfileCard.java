@@ -23,11 +23,11 @@ public class ProfileCard {
     @View(R.id.profileImageView)
     private ImageView profileImageView;
 
-    @View(R.id.nameAgeTxt)
-    private TextView nameAgeTxt;
+    @View(R.id.tv_desc)
+    private TextView description;
 
-    @View(R.id.locationNameTxt)
-    private TextView locationNameTxt;
+    @View(R.id.tv_details)
+    private TextView details;
 
     private Profile mProfile;
     private Context mContext;
@@ -44,7 +44,7 @@ public class ProfileCard {
     @Resolve
     private void onResolved() {
         Glide.with(mContext).load(mProfile.getUser().getPicture()).into(profileImageView);
-        nameAgeTxt.setText(mProfile.getUser().getName().getFirst());
+        details.setText(mProfile.getUser().component1());
 
     }
 
