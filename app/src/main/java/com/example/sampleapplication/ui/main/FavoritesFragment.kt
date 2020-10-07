@@ -51,10 +51,8 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("FavoritesFragment", "onViewCreated")
         favViewModel.getFavoritesFromDb()
         favViewModel.profiles.observe(viewLifecycleOwner, {
-            Log.d("FavoritesFragment", it.toString())
             if (it.isEmpty()) {
                 Toast.makeText(
                     view.context,
@@ -84,7 +82,6 @@ class FavoritesFragment : Fragment() {
         @JvmStatic
         fun newInstance(columnCount: Int) =
             FavoritesFragment().apply {
-                Log.d("FavoritesFragment", "newInstance")
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }

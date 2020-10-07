@@ -7,13 +7,12 @@
     android:orientation="horizontal">
 
     <ImageView
-        tools:src="@drawable/ic_launcher_background"
-        android:id="@+id/iv_profile_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/iv_profile_small"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/item_number"
@@ -23,7 +22,7 @@
         android:layout_marginStart="10dp"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_profile_iv"
+        app:layout_constraintStart_toEndOf="@+id/iv_profile_small"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Dummy1" />
 
