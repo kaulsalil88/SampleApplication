@@ -49,15 +49,9 @@ class MainFragment : Fragment() {
             .setDisplayViewCount(3)
             .setSwipeDecor(SwipeDecor().setPaddingTop(20).setRelativeScale(0.01f))
         viewModel.getProfile()
-        viewModel.profiles.observe(viewLifecycleOwner, {
-            Log.d("MainFragment -------->", it.toString())
-            Log.d("MainFragment", it.size.toString())
-            for (profile in it) {
+        viewModel.profiles.observe(viewLifecycleOwner, { list ->
+            for (profile in list) {
                 swipeView.addView(ProfileCard(mContext, profile, swipeView, viewModel))
-                swipeView.addItemRemoveListener {
-                    Log.d("Main Fragment", it.toString());
-                }
-
             }
 
         })
