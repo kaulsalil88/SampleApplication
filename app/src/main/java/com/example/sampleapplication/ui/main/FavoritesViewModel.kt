@@ -2,6 +2,7 @@ package com.example.sampleapplication.ui.main
 
 import android.app.Application
 import android.provider.ContactsContract
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +19,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val profiles: LiveData<List<ProfileDatabaseEntity>> get() = _profiles
 
     fun getFavoritesFromDb(){
+        Log.d("FavViewModel","getFavoritesFromDb")
         viewModelScope.async {
            _profiles.value = getProfileDatabase(getApplication()).ProfileDao.getAllLikedProfiles()
         }

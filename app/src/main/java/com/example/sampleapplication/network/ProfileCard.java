@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sampleapplication.R;
 import com.example.sampleapplication.ui.main.MainViewModel;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
@@ -43,7 +44,9 @@ public class ProfileCard {
 
     @Resolve
     private void onResolved() {
-        Glide.with(mContext).load(mProfile.getUser().getPicture()).into(profileImageView);
+        Glide.with(mContext).
+                load(mProfile.getUser().getPicture()).
+                into(profileImageView);
         details.setText(mProfile.getUser().component1());
 
     }

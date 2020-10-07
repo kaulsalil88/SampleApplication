@@ -21,6 +21,12 @@ data class Name(val title: String, val first: String, val last: String)
 
 fun Profile.convertToDbEntity(): ProfileDatabaseEntity {
     val profileDatabaseEntity =
-        ProfileDatabaseEntity(0, this.user.name.title, this.user.name.first, this.user.name.last)
+        ProfileDatabaseEntity(
+            0,
+            this.user.name.title,
+            this.user.name.first,
+            this.user.name.last,
+            this.user.picture
+        )
     return profileDatabaseEntity
 }

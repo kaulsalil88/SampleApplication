@@ -9,5 +9,6 @@ data class ProfileDatabaseEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val title: String,
     val first: String,
-    val last: String
+    val last: String,
+    val imagaeUrl: String
 )

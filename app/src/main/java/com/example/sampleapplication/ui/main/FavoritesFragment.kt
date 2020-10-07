@@ -1,6 +1,7 @@
 package com.example.sampleapplication.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +28,7 @@ class FavoritesFragment : Fragment() {
 
     val favViewModel: FavoritesViewModel by lazy {
         requireNotNull(this.activity) {
-            "Activity has to be created"
+            "FavoritesFragment Activity has to be created"
         }
         ViewModelProvider(this).get(FavoritesViewModel::class.java)
     }
@@ -40,11 +41,21 @@ class FavoritesFragment : Fragment() {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_favorites_list, container, false)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("FavoritesFragment", "onViewCreated")
         favViewModel.getFavoritesFromDb()
         favViewModel.profiles.observe(viewLifecycleOwner, {
-            if (it.size == 0) {
+            Log.d("FavoritesFragment", it.toString())
+            if (it.isEmpty()) {
                 Toast.makeText(
                     view.context,
                     "No Profile has been added to favorites",
@@ -73,6 +84,7 @@ class FavoritesFragment : Fragment() {
         @JvmStatic
         fun newInstance(columnCount: Int) =
             FavoritesFragment().apply {
+                Log.d("FavoritesFragment", "newInstance")
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
