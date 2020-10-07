@@ -45,7 +45,7 @@ public class ProfileCard {
     private void onResolved() {
         Glide.with(mContext).load(mProfile.getUser().getPicture()).into(profileImageView);
         nameAgeTxt.setText(mProfile.getUser().getName().getFirst());
-        //locationNameTxt.setText(mProfile.getLocation());
+
     }
 
     @SwipeOut
